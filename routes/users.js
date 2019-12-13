@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
@@ -6,6 +6,7 @@ const perfumeData = data.perfume;
 const userData = data.users;
 const bcrypt = require("bcryptjs");
 const saltRounds = 8;
+const xss = require("xss");
 
 //get information from log in page
 /* router.post('/',async(req,res)=>{
@@ -78,7 +79,6 @@ router.post('/new',async(req,res)=>{
     }
 });
 
-<<<<<<< HEAD
 router.post('/user_infornation',async(req,res)=>{
     let userid=req.body.personid;
     try{
@@ -87,25 +87,6 @@ router.post('/user_infornation',async(req,res)=>{
 
     }
 });
-=======
-const express = require("express");
-const router = express.Router();
-const xss = require("xss");
-
-router.get("/login", (req, res) => {
-    res.render("./page/loginPage", { title: "User", accountHidden: "hidden" });
-});
-
-router.post("/", (req, res) => {
-    res.status(500).render("./page/errorPage", { title: "user", errorMessage: "post user" });
-});
-
-router.get("/:id", (req, res) => {
-    res.status(500).render("./page/errorPage", { title: "user", errorMessage: "get user id" });
-});
-
-module.exports = router;
->>>>>>> dev
 =======
 router.post('/user_homepage',async(req,res)=>{
     var personreview=await perfumeData.getUserreview(req.session.AuthCookie['_id']);
@@ -117,4 +98,4 @@ router.post('/user_homepage',async(req,res)=>{
         personreview:personreview
     });
 });
->>>>>>> a
+module.exports = router;
