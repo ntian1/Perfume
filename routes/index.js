@@ -5,11 +5,11 @@ const path = require("path");
 const constructorMethod = app => {
   app.use("/perfume", perfumeRoutes);
 
-  app.use("/", userRoutes);
+  app.use("/users", userRoutes);
 
-  // app.get("/", (req,res)=>{
-  //   res.sendFile(path.resolve("static/homePage.html"));
-  // });
+  app.get("/", (req,res)=>{
+    res.render('page/homePage');
+  });
 
   app.use("*", (req, res) => {
     res.status(404).render("page/errorPage", {errorMessage: "Page Not Found!"});

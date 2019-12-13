@@ -5,7 +5,7 @@
 					<div class="login-form">
 						<h2>Login to your account</h2>
                         <p>{{error}}</p>
-						<form action="/login" method="post">
+						<form action="/users/login" method="post">
 							<input name="username" id="username" type="text" placeholder="Name or Email Address" />
 							<input name="password" id="password" type="password" placeholder="Password" />
 							{{!-- <span>
@@ -22,7 +22,8 @@
 				<div class="col-sm-4">
 					<div class="signup-form">
 						<h2>New User Signup!</h2>
-						<form action="/new" method="post">
+						<p>{{error2}}</p>
+						<form action="/users/new" method="post">
 							<input name="userName" id="username" type="text" placeholder="Name"/>
 							<input name="Email" id="Email" type="email" placeholder="Email Address"/>
 							<input name="hashedPassword" id="hashedPassword" type="password" placeholder="Password"/>

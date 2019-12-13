@@ -31,7 +31,7 @@ app.use(session({
 app.engine("handlebars", exphbs({ helpers: require('./config/handlebars-helpers') }));
 app.set("view engine", "handlebars");
 
-app.use('/user_homepage',function(request, response, next){
+app.use('/users/user_homepage',function(request, response, next){
   if(request.session.cookie.expires==false || request.session.cookie.expires==null){
     response.status(403).render('page/loginPage',{error:'you did not login'});
   }

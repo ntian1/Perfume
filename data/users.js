@@ -37,15 +37,19 @@ async function ifAuthenticated(userName,userPassword){
     const user = await usersCollection.findOne({ userName: userName });
     
     const dbPassword = user.hashedPassword;
-    
+    var n= true;
     bcrypt.compare(userPassword,dbPassword, function(err, bcryptres) {
         if(bcryptres===false){
             //console.log(1);
-            return false;
+            n=false;
         }
-        //console.log(2);
-        return user;
      });
+     if (n==true){
+         return user
+     }
+     else{
+         return false
+     }
 }
 
 
