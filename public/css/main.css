@@ -1430,6 +1430,19 @@ h2.title {
     font-weight: 300;
     margin-bottom: 30px;
 }
+.signup-form form textarea{
+    background: #F0F0E9;
+    border: medium none;        
+    height: 195px;    
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 25px;    
+    margin-top: 15px;    
+    outline: medium none;    
+    padding-left: 10px;    
+    padding-top: 15px;    
+    resize: none;    
+    width: 99.5%;
+}
 
 .login-form form input,
 .signup-form form input {
@@ -2464,3 +2477,4 @@ textarea {
 section{
     min-height: 80vh;
 }
+
