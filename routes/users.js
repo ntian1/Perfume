@@ -6,7 +6,7 @@ const comments=data.comments;
 const userData = data.users;
 const bcrypt = require("bcryptjs");
 const saltRounds = 8;
-
+var authenticate=false;
 //get information from log in page
 /* router.post('/',async(req,res)=>{
     let username = req.body.personame;
@@ -25,27 +25,31 @@ const saltRounds = 8;
         res.status(400).json(e);
     } 
 }); */
-router.get("/", async (req, res) => { 
-    try {     
+router.get("/", async (req, res) => {   
+    try {    
+         
         if (req.session.cookie.expires!=false && req.session.cookie.expires!=null){
+            authenticate=true;
             // anHourAgo.setHours(anHourAgo.getHours() - 1);
             // res.clearCookie('AuthCookie');
             res.redirect('/users/user_homepage');
         }
         else{
-            res.render('page/loginPage',{error:''});
+            authenticate=false;
+            res.render('page/loginPage',{error:'', authenticated:authenticate});
         }
     } catch (e) {     
-        res.json('error'); 
+        res.render('page/errorPage',{error:errorMessage, authenticated:authenticate}); 
     }
 });
 
 router.post('/login', async (req, res) => {
+    
     let username = req.body.username;
     let userpassward=await bcrypt.hash(req.body.password, saltRounds);
     try{
         var personinfor=await userData.ifAuthenticated(username,userpassward); 
-        if (personinfor==false) res.render('page/loginPage',{error:'you did not provide a valid username and/or password'})
+        if (personinfor==false) res.render('page/loginPage',{error:'you did not provide a valid username and/or password',authenticated:false})
 
         const expiresAt = new Date();
         expiresAt.setHours(expiresAt.getHours() + 1);
@@ -61,7 +65,7 @@ router.post('/login', async (req, res) => {
         //     personid: personinfor['_id'] //隐藏部分，用于查询用户详细信息
         // });
     }catch(e){
-        res.status(401).render('page/loginPage',{error:'you did not provide a valid username and/or password'});
+        res.status(401).render('page/loginPage',{error:'you did not provide a valid username and/or password',authenticate:false});
     }
 
   }); 
@@ -73,11 +77,13 @@ router.post('/new',async(req,res)=>{
     let Gender=req.body.Gender;
     let Age=req.body.Age;
     let hashedPassword=await bcrypt.hash(req.body.hashedPassword, saltRounds);
+    
+    
     try{
         const getallname = await userData.getAll();
         for (i=0; i<getallname.length ;i++){
             if (getallname[i]['userName']==userName){
-                res.render('page/loginPage',{error2: 'this username is existed, please choose another one'})
+                res.render('page/loginPage',{error2: 'this username is existed, please choose another one',authenticated:false})
             }
         }
 
@@ -95,11 +101,16 @@ router.post('/new',async(req,res)=>{
         //     personid: personinfor['_id'] //隐藏部分，用于查询用户详细信息
         // });
     }catch(e){
-        res.status(401).render('page/loginPage',{error:'you did not provide a valid username and/or password'})
+        res.status(401).render('page/loginPage',{error:'you did not provide a valid username and/or password',authenticated:authenticate})
     }
 });
 
 router.get('/user_homepage',async(req,res)=>{
+    if (req.session.cookie.expires!=false && req.session.cookie.expires!=null){
+        authenticate=true;
+      }else{
+          authenticate=false;
+      }
     var usercomments=req.session.AuthCookie['comments'];
     var commentlist=[];
     for (i=0;i<usercomments.length;i++){
@@ -115,7 +126,8 @@ router.get('/user_homepage',async(req,res)=>{
         emailAddress:req.session.AuthCookie['Email'],
         Gender:req.session.AuthCookie['Gender'],
         Age:req.session.AuthCookie['Age'],
-        userReviews:commentlist
+        userReviews:commentlist,
+        authenticated:authenticate
     });
 });
 
@@ -125,7 +137,7 @@ router.get('/logout',async(req,res)=>{
     //res.clearCookie('AuthCookie');
     req.session.cookie.expires=false;
     req.session.destroy();
-    res.render('page/loginPage',{error:'you were logout'});
+    res.render('page/loginPage',{error:'you were logout',authenticated:authenticate});
 });
 
 router.post('/changeEmail', async(req,res)=>{
