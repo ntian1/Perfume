@@ -10,8 +10,18 @@ router.get("/", async (req, res) => {
       authenticate=true;
     }
     try {
-      const perfumelist=await perfumeData.getAll();
-      res.render('page/homepage',{title:"Perfume Promotion - Home Page", featuresProduct:perfumelist});
+      var perfumelist=await perfumeData.getAll();
+      perfumelist.map((perfume)=>{
+        const i={
+          name:perfume.name,
+          companyName:perfume.companyName,
+          img_url:perfume.link[0],
+          _id:perfume._id
+        };
+        return i;
+      });
+      
+      res.render('page/homepage',{title:"Perfume Promotion - Home Page", featuresProduct:perfumelist, authenticated:authenticate});
 
     } catch (e) {
         res.status(500).render("/page/errorPage",{ error: e, authenticated:authenticate});
