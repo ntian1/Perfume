@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const data = require("../data");
-const perfumeData = data.Perfume;
+const perfumeData = data.perfume;
 const userData = data.users;
 
 router.get("/", async (req, res) => {
@@ -49,9 +49,11 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const perfume = await perfumeData.get(req.params.id);
-    res.json(perfume);
+    res.render('page/perfumePage',{name:perfume.name,
+    company:perfume.companyName, perfumeDetails:perfume.introduction,
+  _id:perfume._id, "amazon-url":perfume.link});
   } catch (e) {
-    res.status(404).render('page/errorPage',{ errorMessage: "e" });
+    res.status(404).render('page/errorPage',{ errorMessage: e });
   }
 });
 
