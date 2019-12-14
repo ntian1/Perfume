@@ -51,7 +51,7 @@ router.get("/:id", async (req, res) => {
     const perfume = await perfumeData.get(req.params.id);
     res.render('page/perfumePage',{name:perfume.name,
     company:perfume.companyName, perfumeDetails:perfume.introduction,
-  _id:perfume._id, "amazon-url":perfume.link});
+  _id:perfume._id, "amazon-url":perfume.link, perfumeTages:perfume.tags});
   } catch (e) {
     res.status(404).render('page/errorPage',{ errorMessage: e });
   }
