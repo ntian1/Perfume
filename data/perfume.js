@@ -75,6 +75,13 @@ async function getAll(){
 
 
 async function get(id){
+    if (!id) throw "You must provide an id to search for";
+    if (typeof id !== 'string') {
+        throw "id not string";
+    } 
+    if (ObjectId.isValid(id) === false) {
+        throw "not valid id";
+    }
     const perfumeCollection = await perfume();
     const { ObjectId } = require('mongodb');
     const objId = ObjectId.createFromHexString(String(id))

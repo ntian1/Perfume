@@ -21,51 +21,44 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  if (!blogperfumeData.title||typeof blogperfumeData.title != "string") {
-    res.status(400).json({ error: "You must provide a String title" });
+  if (!blogperfumeData.name||typeof blogperfumeData.name != "string") {
+    res.status(400).json({ error: "You must provide a String name" });
     return;
   }
-  if (!blogperfumeData.author||typeof blogperfumeData.author != "string") {
-    res.status(400).json({ error: "You must provide a string author" });
+  if (!blogperfumeData.companyName||typeof blogperfumeData.companyName != "string") {
+    res.status(400).json({ error: "You must provide a string companyName" });
     return;
   }
-  if (!blogperfumeData.content||typeof blogperfumeData.content != "string") {
-    res.status(400).json({ error: "You must provide a content" });
+  if (!blogperfumeData.introduction||typeof blogperfumeData.introduction != "string") {
+    res.status(400).json({ error: "You must provide a introduction" });
     return;
   }
   try {
-    const newperfume = await perfumeData.addperfume(
-      blogperfumeData.title, 
-      blogperfumeData.author,
-      blogperfumeData.content.productName,
-      blogperfumeData.content.picture,
-      blogperfumeData.content.companyName,
-      blogperfumeData.content.parameters,
-      blogperfumeData.content.briefIntro,
-      blogperfumeData.content.links,
-      blogperfumeData.content.detailInfo,
-      blogperfumeData.content.tags
+    const newperfume = await perfumeData.create(
+      blogperfumeData.name, 
+      blogperfumeData.companyName,
+      blogperfumeData.introduction
       );
-    await userData.addPerfume(blogperfumeData.author,newperfume._id);
-    res.status(200).json(newperfume);
+      url = "perfumes/:" + newperfume._id.toString()
+    res.status(200).redirect(url,{message:"post success"});
   } catch (e) {
-    res.status(500).json({ error: e });
+    res.status(500).render('page/errorPage',{ errorMessage: e });
   }
 });
 
 router.get("/:id", async (req, res) => {
   try {
-    const perfume = await perfumeData.getperfumeById(req.params.id);
+    const perfume = await perfumeData.get(req.params.id);
     res.json(perfume);
   } catch (e) {
-    res.status(404).json({ error: "perfume not found" });
+    res.status(404).render('page/errorPage',{ errorMessage: "e" });
   }
 });
 
 router.put("/:id", async (req, res) => {
   const updatedData = req.body;
 
-  if (!updatedData.newTitle&&!updatedData.newContent) {
+  if (!updatedData.newname&&!updatedData.newintroduction) {
     res.status(400).json({ error: "You must provide a new name or new type" });
     return;
   }
@@ -92,7 +85,7 @@ router.delete("/:id", async (req, res) => {
   }
   try {
     const removed = await perfumeData.removeperfume(req.params.id);
-    await userData.deletePerfume(blogperfumeData.author.id,req.params.id);
+    await userData.deletePerfume(blogperfumeData.companyName.id,req.params.id);
     res.json(removed);
     } catch (e) {
     res.status(500).json({ error: e });

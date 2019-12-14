@@ -140,18 +140,6 @@ router.get('/logout',async(req,res)=>{
     res.render('page/loginPage',{error:'you were logout',authenticated:authenticate});
 });
 
-router.get('/changeEmail', async(req,res)=>{
-    const user=req.session.AuthCookie['userName'];
-    try{
-        var changeEmail=await userData.EmailUpdate(user,req.body.changeEmailAddress);
-        req.session.AuthCookie=changeEmail;
-    }catch(e){
-        res.render('page/errorPage',{errorMessage:e,authenticated:authenticate});
-    }
-   
-
-        res.redirect('/users/user_homepage');
-})
 
 router.post('/changeEmail', async(req,res)=>{
     const user=req.session.AuthCookie['userName'];
