@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const data = require("../data");
-const perfumeData = data.Perfume;
+const perfumeData = data.perfume;
 const userData = data.users;
 
 router.get("/", async (req, res) => {
@@ -10,7 +10,8 @@ router.get("/", async (req, res) => {
       authenticate=true;
     }
     try {
-      res.render('page/homepage',{title:"Perfume Promotion - Home Page"});
+      const perfumelist=await perfumeData.getAll();
+      res.render('page/homepage',{title:"Perfume Promotion - Home Page", featuresProduct:perfumelist});
 
     } catch (e) {
         res.status(500).render("/page/errorPage",{ error: e, authenticated:authenticate});

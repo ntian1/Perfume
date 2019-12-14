@@ -64,16 +64,16 @@
                     <div class="col-md-8 clearfix">
                         <div class="shop-menu clearfix pull-right">
                             <ul class="nav navbar-nav">
-                                {{#ifEqual authenticated "true"}}
+                                {{#if authenticated}}
                                 <li id="account"><a href="/users"><i class="fa fa-user"></i>
                                         Account</a></li>
                                 <li id="loglout"><a href="/users/logout"><i
                                             class="fa fa-caret-square-o-right"></i> Logout</a></li>
-                                {{/ifEqual}}
-                                {{#ifEqual authenticated "false"}}
+                                {{else}}
+                                
                                 <li id="login"><a href="/users"><i class="fa fa-lock"></i>
                                         Login</a></li>
-                                {{/ifEqual}}
+                                {{/if}}
                             </ul>
                         </div>
                     </div>

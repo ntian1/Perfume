@@ -145,6 +145,9 @@ $(document).ready(function () {
     });
 
     $("button").click(function (event) {
+        if (this.hasClass("login")){
+            return false;
+        }
         event.preventDefault();
         const p = $(this).parent();
         if (!p.find("input")[0].value) {
@@ -189,7 +192,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: "/users/changePassword",
                 data: {
-                    changePassword: p.find("#emailAddress").value
+                    changePassword: p.find("#password").value
                 },
                 success: function (result) {
                     alert('Succes!');
@@ -205,7 +208,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: "/users/changeGender",
                 data: {
-                    changeGender: p.find("#emailAddress").value
+                    changeGender: p.find("#gender").value
                 },
                 success: function (result) {
                     alert('Succes!');
@@ -221,7 +224,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: "/users/changeAge",
                 data: {
-                    changeAge: p.find("#emailAddress").value
+                    changeAge: p.find("#age").value
                 },
                 success: function (result) {
                     alert('Succes!');
