@@ -11,6 +11,8 @@ async function create(userId,perfumeId,rate,text) {
     let newComment = {
         rate: rate,
         text:text,
+        userId:userId,
+        perfumeId:perfumeId,
         reported:0,
         dislike:0,
         like:0
@@ -48,6 +50,47 @@ async function create(userId,perfumeId,rate,text) {
 
     return newCommentData;
 }
+
+
+async function remove(id) {
+    // all the parameter should be check in routing
+    
+    const { ObjectId } = require('mongodb');
+    var objId = ObjectId.createFromHexString(String(id));
+    const commentsCollection = await comments();
+    const comment = await commentsCollection.findOne({ _id: objId });
+    
+    const usersCollection = await users();
+    let deleteComment = {
+        $pull: {
+            comments: {_id:objId
+            }
+        }
+    };
+    
+    objId = ObjectId.createFromHexString(String(comment.userId));
+    await usersCollection.updateOne({ _id: objId}, deleteComment);
+
+    objId = ObjectId.createFromHexString(String(id));
+    const perfumeCollection = await perfume();
+
+    let deleteRating = {
+        $pull: {
+            rating: {_id:objId
+            }
+        }
+    };
+
+    objId = ObjectId.createFromHexString(String(comment.perfumeId));
+    await perfumeCollection.updateOne({ _id: objId}, deleteRating);
+    
+    objId = ObjectId.createFromHexString(String(id));
+    await commentsCollection.removeOne({ _id: objId});
+
+    return comment;
+}
+
+
 
 
 async function getAll(){
@@ -136,3 +179,4 @@ module.exports.get = get
 module.exports.likeComments = likeComments
 module.exports.dislikeComments = dislikeComments
 module.exports.reportedComments = reportedComments
+module.exports.remove = remove
