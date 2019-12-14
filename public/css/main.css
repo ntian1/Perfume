@@ -2464,3 +2464,11 @@ textarea {
 section{
     min-height: 80vh;
 }
+
+.modifyHref{
+    font-weight:bold;
+}
+
+.col-sm-12 .userReviews{
+    margin-bottom: 20px;
+}

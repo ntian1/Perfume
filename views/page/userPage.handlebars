@@ -4,23 +4,53 @@
             <div class="col-sm-12">
                 <h2>Hello user {{userName}}</h2>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-12" id="{{userId}}">
+                <h2 class="title text-center">User Information</h2>
                 <h3>You can manage your account here:</h3>
-                <p>User Name: {{userName}}<a id="changeUserName" herf="">Change</a></p>
-                <p>Email Address: {{emailAddress}}<a id="changeEmailAddress" herf="">Change</a></p>
-                <p>Password: <a id="changePassword" herf="">Change</a></p>
+                <p id="userNameP">User Name:&nbsp;<ptag>{{userName}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                        id="changeUserName" href="#">Change</a><a id="userNameCancel" class="modifyHref hide"
+                        href="#">Cancel</a></p>
+                <form id="userNameForm" class="hide">
+                    <input type="text" id="userName" placeholder="New UserName" />
+                    <button>Submit</button>
+                </form>
+                <p id="emailAddressP">Email Address:&nbsp;<ptag>{{emailAddress}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                        id="changeEmailAddress" href="#">Change</a><a id="emailAddressCancel" class="modifyHref hide"
+                        href="#">Cancel</a></p>
+                <form id="emailAddressForm" class="hide">
+                    <input type="email" id="emailAddress" placeholder="New EmailAddress" />
+                    <button>Submit</button>
+                </form>
+                <p id="passwordP">Password:&nbsp;&nbsp;<a class="modifyHref" id="changePassword" href="#">Change</a><a
+                        id="passwordCancel" class="modifyHref hide" href="#">Cancel</a>
+                </p>
+                <form id="passwordForm" class="hide">
+                    <input type="password" id="password" placeholder="New Password" />
+                    <button>Submit</button>
+                </form>
             </div>
-            <div class="col-sm-12">
-                <h3>You can manage your review here:</h3>
+        </div>
+        <div class="col-sm-12">
+            <div class="user_reviews">
+                <h2 class="title text-center">User Reviews</h2>
+                <h3>You can manage your reviews here:</h3>
                 {{#each userReviews}}
-                <div class="col-sm-12">
-                    <a href="/perfume/{{perfumeId}}"><i class="fa fa-arrow-right"></i>{{perfumeName}}</a>
-                    <p>{{reviewContent}}</p>
-                    <p><a id="changeReview" herf="">Edit</a></p>
-                    <p><a id="deleteReview" herf="">Dekete</a></p>
+                <div class="col-sm-12 userReviews" id="{{reviewId}}">
+                    <a href="/perfume/{{perfumeId}}"><i
+                            class="fa fa-arrow-right"></i>{{perfumeName}}&nbsp;-&nbsp;{{perfumeCompany}}</a>
+                    <p class="reviewContent">{{reviewContent}}</p>
+                    <p class="reviewRating">Rating: {{reviewRating}}</p>
+                    <form class="perfumeReviewForm hide">
+                        <input type="text" id="perfumeReview" />
+                        <button>Submit</button>
+                    </form>
+                    <p><a class="modifyHref changeReview" href="#">Edit</a></p>
+                    <p><a class="modifyHref deleteReview" href="#">Delete</a></p>
+                    <p><a class="modifyHref reviewCancel hide" href="#">Cancel</a></p>
                 </div>
                 {{/each}}
             </div>
         </div>
+    </div>
     </div>
 </section>
