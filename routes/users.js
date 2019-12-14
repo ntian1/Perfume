@@ -118,6 +118,7 @@ router.get('/user_homepage',async(req,res)=>{
         userReviews:commentlist
     });
 });
+
 router.get('/logout',async(req,res)=>{
     const anHourAgo = new Date();
     anHourAgo.setHours(anHourAgo.getHours() - 1);
@@ -125,5 +126,64 @@ router.get('/logout',async(req,res)=>{
     req.session.cookie.expires=false;
     req.session.destroy();
     res.render('page/loginPage',{error:'you were logout'});
+});
+
+router.get('/changeEmail', async(req,res)=>{
+    const user=req.session.AuthCookie['userName'];
+    try{
+        var changeEmail=await userData.EmailUpdate(user,req.body.changeEmailAddress);
+        req.session.AuthCookie=changeEmail;
+    }catch(e){
+        res.render('page/errorPage',{errorMessage:e});
+    }
+   
+
+        res.redirect('/users/user_homepage');
 })
+
+router.post('/changeEmail', async(req,res)=>{
+    const user=req.session.AuthCookie['userName'];
+    try{
+        var changeEmail=await userData.EmailUpdate(user,req.body.changeEmail);
+        req.session.AuthCookie=changeEmail;
+    }catch(e){
+        res.render('page/errorPage',{errorMessage:e});
+    }
+        res.redirect('/users/user_homepage');
+});
+
+router.post('/changePassword', async(req,res)=>{
+    const user=req.session.AuthCookie['userName'];
+    const newpassword=await bcrypt.hash(req.body.changePassword, saltRounds);
+    try{
+        var changePassword=await userData.passwordUpdate(user,newpassword);
+        req.session.AuthCookie=changePassword;
+    }catch(e){
+        res.render('page/errorPage',{errorMessage:e});
+    }
+        res.redirect('/users/user_homepage');
+});
+
+router.post('/changeAge', async(req,res)=>{
+    const user=req.session.AuthCookie['userName'];
+    try{
+        var changeAge=await userData.AgeUpdate(user,req.body.changeAge);
+        req.session.AuthCookie=changeAge;
+    }catch(e){
+        res.render('page/errorPage',{errorMessage:e});
+    }
+        res.redirect('/users/user_homepage');
+});
+
+router.post('/changeGender', async(req,res)=>{
+    const user=req.session.AuthCookie['userName'];
+    try{
+        var changeGender=await userData.GenderUpdate(user,req.body.changeGender);
+        req.session.AuthCookie=changeGender;
+    }catch(e){
+        res.render('page/errorPage',{errorMessage:e});
+    }
+        res.redirect('/users/user_homepage');
+});
+
 module.exports = router;
