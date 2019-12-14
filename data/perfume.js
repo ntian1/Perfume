@@ -2,6 +2,7 @@
 const mongoCollections = require("../config/mongoCollections");
 var perfume = mongoCollections.perfume;
 
+
 async function create(name,companyName,introduction) {
     // all the parameter should be check in routing
     
@@ -79,11 +80,12 @@ async function get(id){
     if (typeof id !== 'string') {
         throw "id not string";
     } 
+    const perfumeCollection = await perfume();
+    const { ObjectId } = require('mongodb');
     if (ObjectId.isValid(id) === false) {
         throw "not valid id";
     }
-    const perfumeCollection = await perfume();
-    const { ObjectId } = require('mongodb');
+    
     const objId = ObjectId.createFromHexString(String(id))
     const perfumeD = await perfumeCollection.findOne({ _id: objId });
    
