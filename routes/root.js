@@ -6,7 +6,7 @@ const userData = data.users;
 
 router.get("/", async (req, res) => {
     try {
-      res.render('page/homepage',{title:"home"});
+      res.render('page/homepage',{title:"Perfume Promotion - Home Page"});
 
     } catch (e) {
         res.status(500).render("/page/errorPage",{ error: e });
