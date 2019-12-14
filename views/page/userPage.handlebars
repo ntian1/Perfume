@@ -7,7 +7,39 @@
             </div>
             <div class="col-sm-12">
                 <h3>You can manage your account here:</h3>
-                <p>User Name: {{userName}}
+                <p id="userNameP">User Name:&nbsp;<ptag>{{userName}}</ptag>&nbsp;&nbsp;</p>
+                <p id="emailAddressP">Email Address:&nbsp;<ptag>{{Email}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                        id="changeEmailAddress" href="#">Change</a><a id="emailAddressCancel" class="modifyHref hide"
+                        href="#">Cancel</a></p>
+                <form id="emailAddressForm" class="hide">
+                    <input type="email" id="emailAddress" placeholder="New EmailAddress" />
+                    <button>Submit</button>
+                </form>
+
+                <p id="genderP">Gender:&nbsp;<ptag>{{Gender}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                        id="changeGender" href="#">Change</a><a id="genderCancel" class="modifyHref hide"
+                        href="#">Cancel</a></p>
+                <form id="genderForm" class="hide">
+                    <input type="text" id="gender" placeholder="New Gender" />
+                    <button>Submit</button>
+                </form>
+
+                <p id="ageP">Age:&nbsp;<ptag>{{Age}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                        id="changeAge" href="#">Change</a><a id="ageCancel" class="modifyHref hide"
+                        href="#">Cancel</a></p>
+                <form id="ageForm" class="hide">
+                    <input type="text" id="age" placeholder="New Age" />
+                    <button>Submit</button>
+                </form>
+
+                <p id="passwordP">Password:&nbsp;&nbsp;<a class="modifyHref" id="changePassword" href="#">Change</a><a
+                        id="passwordCancel" class="modifyHref hide" href="#">Cancel</a>
+                </p>
+                <form id="passwordForm" class="hide">
+                    <input type="password" id="password" placeholder="New Password" />
+                    <button>Submit</button>
+                </form>
+                {{!-- <p>User Name: {{userName}}
                 <p>Email Address:  {{emailAddress}} 
                     <button type="button" onclick="document.getElementById('change1').style.display='block'"> change </button></p>
 
@@ -40,7 +72,7 @@
                 <form  id='change2' action="/users/changePassword" method="post" style="display:none;" >
                     <input id='changePassword' name='changePassword' type="password"/>
                     <button type="submit" class="btn btn-default">submit</button>
-                </form>
+                </form> --}}
             </div>
 
             <div class="col-sm-12">

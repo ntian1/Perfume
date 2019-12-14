@@ -140,7 +140,6 @@ router.get('/logout',async(req,res)=>{
     res.render('page/loginPage',{error:'you were logout',authenticated:authenticate});
 });
 
-
 router.post('/changeEmail', async(req,res)=>{
     const user=req.session.AuthCookie['userName'];
     try{

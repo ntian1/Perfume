@@ -6,9 +6,6 @@
     <title>{{title}}</title>
     {{!-- Perfume Promotion - Home Page --}}
     <link rel="stylesheet" href="../../public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../public/css/site.css">
-    <link rel="stylesheet" href="../../public/css/mainPage.css">
-
     <link href="../../public/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../public/css/prettyPhoto.css" rel="stylesheet">
     <link href="../../public/css/price-range.css" rel="stylesheet">
@@ -67,12 +64,16 @@
                     <div class="col-md-8 clearfix">
                         <div class="shop-menu clearfix pull-right">
                             <ul class="nav navbar-nav">
-                                <li id="account" class="{{accountHidden}}"><a href="/users"><i class="fa fa-user"></i>
+                                {{#ifEqual authenticated "true"}}
+                                <li id="account"><a href="/users"><i class="fa fa-user"></i>
                                         Account</a></li>
-                                <li id="loglout" class="{{accountHidden}}"><a href="/users/logout"><i
+                                <li id="loglout"><a href="/users/logout"><i
                                             class="fa fa-caret-square-o-right"></i> Logout</a></li>
-                                <li id="login" class="{{loginHidden}}"><a href="/users"><i class="fa fa-lock"></i>
+                                {{/ifEqual}}
+                                {{#ifEqual authenticated "false"}}
+                                <li id="login"><a href="/users"><i class="fa fa-lock"></i>
                                         Login</a></li>
+                                {{/ifEqual}}
                             </ul>
                         </div>
                     </div>
@@ -191,7 +192,6 @@
     <script src="../../public/js/jquery.scrollUp.min.js"></script>
     <script src="../../public/js/price-range.js"></script>
     <script src="../../public/js/jquery.prettyPhoto.js"></script>
-    <script src="../../public/js/main.js"></script>
     <script src="../../public/js/mainPage.js"></script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 

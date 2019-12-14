@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
       authenticate=true;
     }
     try {
-      res.render('page/homepage',{title:"home"});
+      res.render('page/homepage',{title:"Perfume Promotion - Home Page"});
 
     } catch (e) {
         res.status(500).render("/page/errorPage",{ error: e, authenticated:authenticate});
