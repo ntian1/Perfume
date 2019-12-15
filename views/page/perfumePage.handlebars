@@ -5,20 +5,18 @@
                 <div class="product-details">
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{imgUrl}}" alt="product" />
+                            <img src="{{img-url}}" alt="product" />
                         </div>
                     </div>
                     <div class="col-sm-7">
                         <div class="product-information">
-                            <h2>{{name}} - {{companyName}}</h2>
+                            <h2>{{name}} - {{company}}</h2>
                             <p>Web ID: {{_id}}</p>
                             {{!-- <img src="images/product-details/rating.png" alt="" />  rating system --}}
                             <button type="button" class="btn btn-fefault cart" id="cart">
                                 <i class="fa fa-shopping-cart"></i> View on Amazon
                             </button>
-                            <a class="hidden" href="" {{amazonUrl}} id="amazonLink"></a>
-                            <p></p>
-                            <p><b>Rating:&nbsp;</b>{{rating}}</p>
+                            <a class="hidden" href="" {{amazon-url}} id="amazonLink"></a>
                             <p></p>
                             <p>Share this product:</p>
                             <br><a target="_blank" id="fbshareLink" href="#"><img
@@ -75,7 +73,7 @@
                                     Login</a></p>
                             {{/ifEqual}}
                             {{#ifEqual authenticated "true"}}
-                            <form class="" action="/" method="post">
+                            <form class="" action="/comment/:perfumeId" method="post">
                                 <textarea id="userReview"></textarea>
                                 <b>Rating: </b> <input type="number" placeholder="From 1 to 5">
                                 <button type="button" class="btn btn-default pull-right">
@@ -83,19 +81,6 @@
                                 </button>
                             </form>
                             {{/ifEqual}}
-                            {{/if}}
-                            <h2>Reviews From Other Users</h2>
-                            {{#if perfumeReviews}}
-                            {{#each perfumeReviews}}
-                            <div class="col-sm-12 userReviews">
-                                <p><b>User Name:&nbsp;</b>{{userName}}</p>
-                                <p><b>Review Content:&nbsp;</b>{{content}}</p>
-                                <p><b>Likes:&nbsp;</b>{{likes}}</p>
-                                <p><b>Dislikes:&nbsp;</b>{{dislikes}}</p>
-                            </div>
-                            {{/each}}
-                            {{else}}
-                            <p>No one leaves review yet.</p>
                             {{/if}}
                         </div>
                     </div>
