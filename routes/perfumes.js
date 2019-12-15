@@ -4,6 +4,7 @@ const data = require("../data");
 const perfumeData = data.perfume;
 const userData = data.users;
 var authenticate=false;
+const commentData = data.comments;
 
 router.get("/", async (req, res) => {
     try {
@@ -11,7 +12,7 @@ router.get("/", async (req, res) => {
       res.json(perfumeList);
       
     } catch (e) {
-      res.status(500).render("page/errorPage",{ error: e , authenticated:authenticated});
+      res.status(500).render("page/errorPage",{ error: e , authenticated:authenticated}});
     }
   });   
 
@@ -87,7 +88,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-
+    
     blogperfumeData = await perfumeData.getperfumeById(req.params.id);
   } catch (e) {
     res.status(404).json({ error: "perfume not found" });
@@ -102,14 +103,15 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.post("comment/:perfumeId", async (req, res) => {
-  if (Object.keys(req.query).length != 1 || !req.query.userId) {
-      res.status(400).json({ error: "You must provide one and only one userId in your url" });
+  if (Object.keys(req.query).length != 1 || !req.query.perfumeId) {
+      res.status(400).json({ error: "You must provide one and only one perfumeId in your url" });
       return;
     }
+    const body = req.body;
+    const userreview = body.userReview;
+    const rate = body.rate;
     const perfumeId = req.params.perfumeId;
     const userId = req.query.userId;
-    const commentId = req.query.commentId;
-    const comment = req.query.commentId;
     try {
       await perfumeData.get(perfumeId);
     } catch (e) {
@@ -117,15 +119,14 @@ router.post("comment/:perfumeId", async (req, res) => {
       return;
     }
     try {
-      await userData.readuser(userId);
+      await userData.get(userId);
     } catch (e) {
       res.status(404).json({ error: "user not found" });
       return;
     }
     try {
-      await perfumeData.commentinguser(perfumeId, userId, commentId, comment);
-      await userData.comment
-      res.status(200).json();
+      const newcomment = await commentData.create(userId,perfumeId,rate,userreview);;
+      res.status(200);
     } catch (e) {
       res.status(500).json({ error: e });
     }
@@ -158,13 +159,14 @@ router.delete("comment/:perfumeId", async (req, res) => {
   }
 });
 
-router.post("like/:userId", async (req, res) => {
+router.post("like/:reviewId", async (req, res) => {
   if (Object.keys(req.query).length != 1 || !req.query.perfumeId) {
     res.status(400).json({ error: "You must provide one and only one perfumeId in your url" });
     return;
   }
   const userId = req.params.userId;
   const perfumeId = req.query.perfumeId;
+  
   try {
     await userData.get(userId);
   } catch (e) {
@@ -192,6 +194,7 @@ router.delete("like/:userId", async (req, res) => {
   }
   const userId = req.params.userId;
   const perfumeId = req.query.perfumeId;
+  
   try {
     await userData.get(userId);
   } catch (e) {
