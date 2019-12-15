@@ -82,6 +82,19 @@
                             </form>
                             {{/ifEqual}}
                             {{/if}}
+                            <h2>Reviews From Other Users</h2>                            
+                            {{#if perfumeReviews}}                            
+                            {{#each perfumeReviews}}                            
+                            <div class="col-sm-12 userReviews">                                
+                            <p><b>User Name:&nbsp;</b>{{userName}}</p >                                
+                            <p><b>Review Content:&nbsp;</b>{{content}}</p >                                
+                            <p><b>Likes:&nbsp;</b>{{likes}}</p >                                
+                            <p><b>Dislikes:&nbsp;</b>{{dislikes}}</p >                            
+                            </div>                            
+                            {{/each}}                            
+                            {{else}}                            
+                            <p>No one leaves review yet.</p >                            
+                            {{/if}}
                         </div>
                     </div>
                 </div>
