@@ -51,7 +51,7 @@ router.get("/:id", async (req, res) => {
     const perfume = await perfumeData.get(req.params.id);
     res.render('page/perfumePage',{name:perfume.name,
     company:perfume.companyName, perfumeDetails:perfume.introduction,
-  _id:perfume._id, "amazon-url":perfume.link, perfumeTages:perfume.tags});
+  _id:perfume._id, "amazon-url":perfume.link[0], perfumeTages:perfume.tags});
   } catch (e) {
     res.status(404).render('page/errorPage',{ errorMessage: e });
   }
@@ -81,6 +81,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
+    
     blogperfumeData = await perfumeData.getperfumeById(req.params.id);
   } catch (e) {
     res.status(404).json({ error: "perfume not found" });
