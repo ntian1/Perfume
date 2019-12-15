@@ -7,20 +7,39 @@
             <div class="col-sm-12" id="{{userId}}">
                 <h2 class="title text-center">User Information</h2>
                 <h3>You can manage your account here:</h3>
-                <p id="userNameP">User Name:&nbsp;<ptag>{{userName}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                <p id="userNameP">User Name:&nbsp;<ptag>{{userName}}</ptag>&nbsp;&nbsp;</p>
+                {{!-- <a class="modifyHref"
                         id="changeUserName" href="#">Change</a><a id="userNameCancel" class="modifyHref hide"
                         href="#">Cancel</a></p>
                 <form id="userNameForm" class="hide">
                     <input type="text" id="userName" placeholder="New UserName" />
                     <button>Submit</button>
-                </form>
-                <p id="emailAddressP">Email Address:&nbsp;<ptag>{{emailAddress}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                </form> --}}
+
+                <p id="emailAddressP">Email Address:&nbsp;<ptag>{{Email}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
                         id="changeEmailAddress" href="#">Change</a><a id="emailAddressCancel" class="modifyHref hide"
                         href="#">Cancel</a></p>
                 <form id="emailAddressForm" class="hide">
                     <input type="email" id="emailAddress" placeholder="New EmailAddress" />
                     <button>Submit</button>
                 </form>
+
+                <p id="genderP">Gender:&nbsp;<ptag>{{Gender}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                        id="changeGender" href="#">Change</a><a id="genderCancel" class="modifyHref hide"
+                        href="#">Cancel</a></p>
+                <form id="genderForm" class="hide">
+                    <input type="text" id="gender" placeholder="New Gender" />
+                    <button>Submit</button>
+                </form>
+
+                <p id="ageP">Age:&nbsp;<ptag>{{Age}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                        id="changeAge" href="#">Change</a><a id="ageCancel" class="modifyHref hide"
+                        href="#">Cancel</a></p>
+                <form id="ageForm" class="hide">
+                    <input type="text" id="age" placeholder="New Age" />
+                    <button>Submit</button>
+                </form>
+
                 <p id="passwordP">Password:&nbsp;&nbsp;<a class="modifyHref" id="changePassword" href="#">Change</a><a
                         id="passwordCancel" class="modifyHref hide" href="#">Cancel</a>
                 </p>
@@ -29,28 +48,29 @@
                     <button>Submit</button>
                 </form>
             </div>
-        </div>
-        <div class="col-sm-12">
-            <div class="user_reviews">
-                <h2 class="title text-center">User Reviews</h2>
-                <h3>You can manage your reviews here:</h3>
-                {{#each userReviews}}
-                <div class="col-sm-12 userReviews" id="{{reviewId}}">
-                    <a href="/perfume/{{perfumeId}}"><i
-                            class="fa fa-arrow-right"></i>{{perfumeName}}&nbsp;-&nbsp;{{perfumeCompany}}</a>
-                    <p class="reviewContent">{{reviewContent}}</p>
-                    <p class="reviewRating">Rating: {{reviewRating}}</p>
-                    <form class="perfumeReviewForm hide">
-                        <input type="text" id="perfumeReview" />
-                        <button>Submit</button>
-                    </form>
-                    <p><a class="modifyHref changeReview" href="#">Edit</a></p>
-                    <p><a class="modifyHref deleteReview" href="#">Delete</a></p>
-                    <p><a class="modifyHref reviewCancel hide" href="#">Cancel</a></p>
+
+            <div class="col-sm-12">
+                <div class="user_reviews">
+                    <h2 class="title text-center">User Reviews</h2>
+                    <h3>You can manage your reviews here:</h3>
+                    {{#each userReviews}}
+                    <div class="col-sm-12 userReviews" id="{{reviewId}}">
+                        <a href="/perfume/{{perfumeId}}"><i
+                                class="fa fa-arrow-right"></i>{{perfumeName}}&nbsp;-&nbsp;{{perfumeCompany}}</a>
+                        <p class="reviewContent">{{reviewContent}}</p>
+                        <p class="reviewRating">Rating: {{reviewRating}}</p>
+                        <form class="perfumeReviewForm hide">
+                            <textarea class="txtArea"></textarea>
+                            <b>Rating: </b> <input class="rating" type="number" />
+                            <button>Submit</button>
+                        </form>
+                        <p><a class="modifyHref changeReview" href="#">Edit</a></p>
+                        <p><a class="modifyHref deleteReview" href="#">Delete</a></p>
+                        <p><a class="modifyHref reviewCancel hide" href="#">Cancel</a></p>
+                    </div>
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
         </div>
-    </div>
     </div>
 </section>

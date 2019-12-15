@@ -5,7 +5,7 @@
                 <div class="product-details">
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{img-url}}" alt="product" />
+                            <img src="{{imgUrl}}" alt="product" />
                         </div>
                     </div>
                     <div class="col-sm-7">
@@ -16,7 +16,9 @@
                             <button type="button" class="btn btn-fefault cart" id="cart">
                                 <i class="fa fa-shopping-cart"></i> View on Amazon
                             </button>
-                            <a class="hidden" href="" {{amazon-url}} id="amazonLink"></a>
+                            <a class="hidden" href="{{amazonUrl}}" id="amazonLink"></a>
+                            <p></p>
+                            <p><b>Rating:&nbsp;</b>{{rating}}</p>
                             <p></p>
                             <p>Share this product:</p>
                             <br><a target="_blank" id="fbshareLink" href="#"><img
@@ -32,7 +34,6 @@
                 <div class="col-sm-12">
                     <ul class="nav nav-tabs">
                         <li><a href="#details" data-toggle="tab" class="active show">Details</a></li>
-                        <li><a href="#companyInfo" data-toggle="tab">Company Profile</a></li>
                         <li><a href="#tag" data-toggle="tab">Tag</a></li>
                         <li><a href="#reviews" data-toggle="tab">Reviews ({{perfumeReviews.length}})</a></li>
                         {{!-- reviewLength --}}
@@ -44,39 +45,59 @@
                                 {{perfumeDetails}}
                             </p>
                         </div>
-
-                        <div class="tab-pane fade in" id="companyInfo">
-                            <h2>Company Information</h2>
-                            <p class="productInfo">
-                                {{perfumeCompanyInfo}}
-                            </p>
-                        </div>
                         <div class="tab-pane fade in" id="tag">
                             <h2>Tags</h2>
                             {{#each perfumeTags}}
                             <a href="/perfume/tag/{{this}}">{{this}}</a>
                             {{/each}}
                         </div>
-
                         <div class="tab-pane fade in" id="reviews">
-                            <h2>Reviews</h2>
-                            {{#each perfumeReviews}}
-                            <div class="col-sm-12">
-                                <a href=""><i class="fa fa-user"></i>{{userName}}</a>
-                                <p>{{content}}</p>
+                            {{#if userReview.reviewId}}
+                            <h2>Your Review</h2>
+                            <div class="col-sm-12 userReviews" id="{{userReview.reviewId}}">
+                                <p class="reviewContent"><b>Review Content:&nbsp;</b>{{userReview.reviewContent}}</p>
+                                <p class="reviewRating"><b>Rating:&nbsp;</b>{{userReview.reviewRating}}</p>
+                                <p class="reviewLikes"><b>Likes:&nbsp;</b>{{userReview.likes}}</p>
+                                <p class="reviewDislikes"><b>Dislikes:&nbsp;</b>{{userReview.dislikes}}</p>
+                                <form class="perfumeReviewForm hide">
+                                    <textarea class="txtArea"></textarea>
+                                    <b>Rating: </b> <input class="rating" type="number" />
+                                    <button>Submit</button>
+                                </form>
+                                <p><a class="modifyHref changeReview" href="#">Edit</a></p>
+                                <p><a class="modifyHref deleteReview" href="#">Delete</a></p>
+                                <p><a class="modifyHref reviewCancel hide" href="#">Cancel</a></p>
                             </div>
-                            {{/each}}
-                            <p><b>Write Your Review</b></p>
-                            <p class="{{loginHidden}}"><b>You have to login to write a review!</b><a
-                                    href="login.html"><i class="fa fa-lock"></i>
+                            {{else}}
+                            <h2>Write Your Review</h2>
+                            {{#ifEqual authenticated "false"}}
+                            <p><b>You have to login to write a review!&nbsp;&nbsp;</b><a href="/user/login"><i
+                                        class="fa fa-lock"></i>
                                     Login</a></p>
-                            <form class="{{accountHidden}}" action="/" method="post">
+                            {{/ifEqual}}
+                            {{#ifEqual authenticated "true"}}
+                            <form class="" action="/" method="post">
                                 <textarea id="userReview"></textarea>
                                 <b>Rating: </b> <input type="number" placeholder="From 1 to 5">
                                 <button type="button" class="btn btn-default pull-right">
                                     Submit
                                 </button>
                             </form>
+                            {{/ifEqual}}
+                            {{/if}}
+                            <h2>Reviews From Other Users</h2>
+                            {{#if perfumeReviews}}
+                            {{#each perfumeReviews}}
+                            <div class="col-sm-12 userReviews">
+                                <p><b>User Name:&nbsp;</b>{{userName}}</p>
+                                <p><b>Review Content:&nbsp;</b>{{content}}</p>
+                                <p><b>Likes:&nbsp;</b>{{likes}}</p>
+                                <p><b>Dislikes:&nbsp;</b>{{dislikes}}</p>
+                            </div>
+                            {{/each}}
+                            {{else}}
+                            <p>No one leaves review yet.</p>
+                            {{/if}}
                         </div>
                     </div>
                 </div>

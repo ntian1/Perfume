@@ -21,7 +21,13 @@ router.get("/search/:string", (req, res) => {
 router.get("/:id", (req, res) => {
     let string1 = "gasdkgjas;dovjn;weufnavnaeurifnasduifhsdaig;hasdjkfnasdiufsdlifhasdigbasdflsadhf";
     let string2 = "gasdkgjas;dovjn;weufnavnaeurifnasduifhsdaig;hasdjkfnasdiufsdlifhasdigbasdflsadhfadsfdafaggasdgsadf";
-    res.render("page/perfumePage", { loginHidden: "hide", accountHidden: "", title: "Perfume", perfumeDetails: string1, perfumeCompanyInfo: string2, perfumeTags: ["man", "casual"] });
+    let string3 = "https://www.amazon.com/Zinus-Jennifer-Collection-Rectangular-Computer/dp/B075F9KPQH?ref_=bl_dp_s_web_12253492011&th=1";
+    res.render("page/perfumePage", { authenticated: "false", title: "Perfume", amazonUrl: string3, perfumeDetails: string1, perfumeCompanyInfo: string2, perfumeTags: ["man", "casual"],perfumeReviews:[{userName:"ql",content:"good", likes: "122", dislikes: "3"},{userName:"jyzh",content:"bad", likes: "12", dislikes: "365"}], userReview: {reviewId: "id", reviewContent: "like shit", reviewRating: "1", likes: "44", dislikes: "555"}});
+});
+
+router.delete("/:id", (req, res) => {
+    console.log(req.body.reviewId);
+    res.status(200).render("./page/errorPage", { title: "user", errorMessage: "post user" });
 });
 
 module.exports = router;

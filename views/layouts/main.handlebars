@@ -66,12 +66,16 @@
                     <div class="col-md-8 clearfix">
                         <div class="shop-menu clearfix pull-right">
                             <ul class="nav navbar-nav">
-                                <li id="account" class="{{accountHidden}}"><a href="/user/id"><i class="fa fa-user"></i>
+                                {{#ifEqual authenticated "true"}}
+                                <li id="account"><a href="/user/{{userId}}"><i class="fa fa-user"></i>
                                         Account</a></li>
-                                <li id="loglout" class="{{accountHidden}}"><a href=""><i
+                                <li id="loglout"><a href=""><i
                                             class="fa fa-caret-square-o-right"></i> Logout</a></li>
-                                <li id="login" class="{{loginHidden}}"><a href="login.html"><i class="fa fa-lock"></i>
+                                {{/ifEqual}}
+                                {{#ifEqual authenticated "false"}}
+                                <li id="login"><a href="/user/login"><i class="fa fa-lock"></i>
                                         Login</a></li>
+                                {{/ifEqual}}
                             </ul>
                         </div>
                     </div>

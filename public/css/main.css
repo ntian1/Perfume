@@ -2472,3 +2472,17 @@ section{
 .col-sm-12 .userReviews{
     margin-bottom: 20px;
 }
+
+.perfumeReviewForm textarea {
+    background: #F0F0E9;
+    border: medium none;
+    color: #A6A6A1;
+    height: 195px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    outline: medium none;
+    padding-left: 10px;
+    padding-top: 15px;
+    resize: none;
+    width: 99.5%;
+}
