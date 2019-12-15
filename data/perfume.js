@@ -45,6 +45,26 @@ async function insertSize(perfumeID,newSize){
 
     return await this.get(objId);
 }
+async function insertImage(perfumeID,newSize){
+    const perfumeCollection = await perfume();
+    const { ObjectId } = require('mongodb');
+
+    const objId = ObjectId.createFromHexString(String(perfumeID))
+
+
+    const updatedAnimal = {
+        $addToSet: {
+            picture: {
+                $each:[newSize]
+            }
+        }
+    }
+
+    await perfumeCollection.updateOne({ _id: objId }, updatedAnimal);
+
+
+    return await this.get(objId);
+}
 async function insertLink(perfumeID,newLink){
     const perfumeCollection = await perfume();
     const { ObjectId } = require('mongodb');
@@ -195,11 +215,10 @@ module.exports.create = create
 module.exports.getAll = getAll
 module.exports.insertSize = insertSize
 module.exports.insertLink = insertLink
+module.exports.insertImage = insertImage
 module.exports.get = get
 module.exports.getUserReview = getUserReview
 module.exports.addTags = addTags
 module.exports.likeTags = likeTags
 module.exports.dislikeTags = dislikeTags
 module.exports.searchTag = searchTag
-
-
