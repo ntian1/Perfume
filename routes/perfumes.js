@@ -19,20 +19,20 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const blogperfumeData = req.body;
   if (!blogperfumeData) {
-    res.status(400).json({ error: "You must provide data to perfume" });
+    res.status(400).render('page/errorPage',{ error: "You must provide data to perfume" });
     return;
   }
 
   if (!blogperfumeData.name||typeof blogperfumeData.name != "string") {
-    res.status(400).json({ error: "You must provide a String name" });
+    res.status(400).render('page/errorPage',{ error: "You must provide a String name" });
     return;
   }
   if (!blogperfumeData.companyName||typeof blogperfumeData.companyName != "string") {
-    res.status(400).json({ error: "You must provide a string companyName" });
+    res.status(400).render('page/errorPage',{ error: "You must provide a string companyName" });
     return;
   }
   if (!blogperfumeData.introduction||typeof blogperfumeData.introduction != "string") {
-    res.status(400).json({ error: "You must provide a introduction" });
+    res.status(400).render('page/errorPage',{ error: "You must provide a introduction" });
     return;
   }
   try {
