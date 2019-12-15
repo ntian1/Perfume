@@ -73,7 +73,7 @@ router.get("/:id", async (req, res) => {
       res.render('page/perfumePage',{name:perfume.name,
     company:perfume.companyName, perfumeDetails:perfume.introduction,
   _id:perfume._id, "amazon-url":perfume.link[0],
-   'img-url':perfume.picture[0],authenticated:authenticate,
+   'img-url':perfume.picture[0],authenticated:authenticate,perfumeTags:perfume.tags,
    perfumeReviews:commentslist
   });
   
