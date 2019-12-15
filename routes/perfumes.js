@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
       res.json(perfumeList);
       
     } catch (e) {
-      res.status(500).render("page/errorPage",{ error: e , authenticated:authenticated}});
+      res.status(500).render("page/errorPage",{ error: e , authenticated:authenticated});
     }
   });   
 
