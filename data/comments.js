@@ -67,6 +67,45 @@ async function get(id){
     return comment;
 }
 
+async function getUserReview(id){
+    if (!id) throw "You must provide an id to search for";
+    if (typeof id !== 'string') {
+        throw "id not string";
+    } 
+    const commentsCollection = await comments();
+    const { ObjectId } = require('mongodb');
+    if (ObjectId.isValid(id) === false) {
+        throw "not valid id";
+    }
+    
+    const objId = ObjectId.createFromHexString(String(id))
+    const commentD = await commentsCollection.find({ _id: objId });
+   
+    if (commentD === null) {
+      throw "No comment with that id"
+    }
+    return commentD;
+}
+
+async function getPerfumeReview(id){
+    if (!id) throw "You must provide an id to search for";
+    if (typeof id !== 'string') {
+        throw "id not string";
+    } 
+    const commentsCollection = await comments();
+    const { ObjectId } = require('mongodb');
+    if (ObjectId.isValid(id) === false) {
+        throw "not valid id";
+    }
+    
+    const objId = ObjectId.createFromHexString(String(id))
+    const commentD = await commentsCollection.find({ _id: objId });
+   
+    if (commentD === null) {
+      throw "No comment with that id"
+    }
+    return commentD;
+}
 
 
 async function likeComments(id){
@@ -136,3 +175,5 @@ module.exports.get = get
 module.exports.likeComments = likeComments
 module.exports.dislikeComments = dislikeComments
 module.exports.reportedComments = reportedComments
+module.exports.getUserReview = getUserReview
+module.exports.getPerfumeReview = getPerfumeReview
