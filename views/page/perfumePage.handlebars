@@ -67,12 +67,7 @@
                             </div>
                             {{else}}
                             <h2>Write Your Review</h2>
-                            {{#ifEqual authenticated "false"}}
-                            <p><b>You have to login to write a review!&nbsp;&nbsp;</b><a href="/user/login"><i
-                                        class="fa fa-lock"></i>
-                                    Login</a></p>
-                            {{/ifEqual}}
-                            {{#ifEqual authenticated "true"}}
+                            {{#if authenticated}}
                             <form class="" action="/comment/:perfumeId" method="post">
                                 <textarea id="userReview"></textarea>
                                 <b>Rating: </b> <input type="number" placeholder="From 1 to 5">
@@ -80,7 +75,11 @@
                                     Submit
                                 </button>
                             </form>
-                            {{/ifEqual}}
+                            {{else}}
+                            <p><b>You have to login to write a review!&nbsp;&nbsp;</b><a href="/user/login"><i
+                                        class="fa fa-lock"></i>
+                                    Login</a></p>
+                            {{/if}}
                             {{/if}}
                             {{!-- <h2>Reviews From Other Users</h2>                             --}}
                             {{#if perfumeReviews}}                            
