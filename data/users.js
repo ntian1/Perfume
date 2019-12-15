@@ -5,7 +5,7 @@ const users = mongoCollections.users;
 
 const bcrypt = require("bcryptjs")
 // create user
-async function create(userName, Email,Gender,Age,hashedPassword) {
+async function create(userName, Email,Gender,Age,hashedPassword,ifAdmin) {
     //all the parameter should be check in routing
     const usersCollection = await users();
     let newUsers = {
@@ -14,7 +14,8 @@ async function create(userName, Email,Gender,Age,hashedPassword) {
         Gender: Gender,
         Age: Age,
         hashedPassword:hashedPassword,
-        comments:[]
+        comments:[],
+        ifAdmin:ifAdmin
     };
     const insertInfo = await usersCollection.insertOne(newUsers);
     if (insertInfo.insertedCount === 0) {

@@ -95,9 +95,7 @@ async function get(id){
     return perfumeD;
 }
 
-async function getUserReview(id){
 
-}
 //add comment
 //for each comment：number of reported/dislikes/likes
 //search tag&name of perfume&#description#
@@ -205,7 +203,7 @@ module.exports.getAll = getAll
 module.exports.insertSize = insertSize
 module.exports.insertLink = insertLink
 module.exports.get = get
-module.exports.getUserReview = getUserReview
+
 module.exports.addTags = addTags
 module.exports.likeTags = likeTags
 module.exports.dislikeTags = dislikeTags
