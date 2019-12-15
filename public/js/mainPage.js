@@ -102,7 +102,7 @@ $(document).ready(function () {
         return false;
     });
 
-    
+
     $("#changeGender").click(function (event) {
         event.preventDefault();
         const p = $(this).parent();
@@ -123,7 +123,7 @@ $(document).ready(function () {
         return false;
     });
 
-    
+
     $("#changeAge").click(function (event) {
         event.preventDefault();
         const p = $(this).parent();
@@ -145,7 +145,7 @@ $(document).ready(function () {
     });
 
     $("button").click(function (event) {
-        if (this.classList.contains("login")){
+        if (this.classList.contains("login")) {
             return true;
         }
         event.preventDefault();
@@ -236,10 +236,10 @@ $(document).ready(function () {
                 }
             });
         }
-        if (p.hasClass("perfumeReviewForm")) {
+        if (p.classList.contains("perfumeReviewForm")) {
             $.ajax({
                 type: "POST",
-                url: window.location.href,
+                url: "",
                 data: {
                     reviewId: p.parent()[0].id,
                     newReview: p.find("textarea").text(),
@@ -271,7 +271,7 @@ $(document).ready(function () {
         p.find(".reviewCancel").removeClass("hide");
         const perfumeReviewForm = p.find(".perfumeReviewForm");
         perfumeReviewForm.removeClass("hide");
-        perfumeReviewForm.find("textarea").text(reviewContent.text().replace("Review Content:","").substring(1));
+        perfumeReviewForm.find("textarea").text(reviewContent.text().replace("Review Content:", "").substring(1));
         const rating = reviewRating.text().replace("Rating:", "").substring(1);
         perfumeReviewForm.find("input").val(rating);
         return false;
@@ -310,5 +310,43 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $(".like").click(function (event) {
+        event.preventDefault();
+        const p = $(this).parent();
+        $.ajax({
+            type: "POST",
+            url: "/perfume/like",
+            data: {
+                reviewId: p.parent()[0].id
+            },
+            success: function (result) {
+                alert('Succes!');
+                p.find("ltag").text(parseInt(p.find("ltag").text()) + 1);
+            },
+            error: function (result) {
+                alert("Error " + result);
+            }
+        });
+    });
+
+    $(".dislike").click(function (event) {
+        event.preventDefault();
+        const p = $(this).parent();
+        $.ajax({
+            type: "POST",
+            url: "/perfume/dislike",
+            data: {
+                reviewId: p.parent()[0].id
+            },
+            success: function (result) {
+                alert('Succes!');
+                p.find("dltag").text(parseInt(p.find("dltag").text()) + 1);
+            },
+            error: function (result) {
+                alert("Error " + result);
+            }
+        });
     });
 });

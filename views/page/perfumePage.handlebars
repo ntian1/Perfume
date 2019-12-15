@@ -5,7 +5,7 @@
                 <div class="product-details">
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{img-url}}" alt="product" />
+                            <img src="{{imgUrl}}" alt="product" />
                         </div>
                     </div>
                     <div class="col-sm-7">
@@ -16,7 +16,9 @@
                             <button type="button" class="btn btn-fefault cart" id="cart">
                                 <i class="fa fa-shopping-cart"></i> View on Amazon
                             </button>
-                            <a class="hidden" href="" {{amazon-url}} id="amazonLink"></a>
+                            <a class="hidden" href="" {{amazonUrl}} id="amazonLink"></a>
+                            <p></p>
+                            <p><b>Rating:&nbsp;</b>{{rating}}</p>
                             <p></p>
                             <p>Share this product:</p>
                             <br><a target="_blank" id="fbshareLink" href="#"><img
