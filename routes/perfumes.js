@@ -41,8 +41,8 @@ router.post("/", async (req, res) => {
       blogperfumeData.companyName,
       blogperfumeData.introduction
       );
-      url = "perfumes/" + newperfume._id.toString()
-    res.status(200).redirect(url,{message:"post success"});
+      url = "/perfume/" + newperfume._id.toString();
+    res.redirect(url);
   } catch (e) {
     res.status(500).render('page/errorPage',{ errorMessage: e , authenticated:authenticate});
   }
