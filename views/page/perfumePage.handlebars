@@ -5,7 +5,7 @@
                 <div class="product-details">
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{img-url}}" alt="product" />
+                            <img src="{{imgUrl}}" alt="product" />
                         </div>
                     </div>
                     <div class="col-sm-7">
@@ -16,7 +16,9 @@
                             <button type="button" class="btn btn-fefault cart" id="cart">
                                 <i class="fa fa-shopping-cart"></i> View on Amazon
                             </button>
-                            <a class="hidden" href="" {{amazon-url}} id="amazonLink"></a>
+                            <a class="hidden" href="" {{amazonUrl}} id="amazonLink"></a>
+                            <p></p>
+                            <p><b>Rating:&nbsp;</b>{{rating}}</p>
                             <p></p>
                             <p>Share this product:</p>
                             <br><a target="_blank" id="fbshareLink" href="#"><img
@@ -50,7 +52,7 @@
                         </div>
                         <div class="tab-pane fade in" id="reviews">
                             {{#if userReview.reviewId}}
-                            <h2>Your Review</h2>
+                            {{!-- <h2>Your Review</h2>
                             <div class="col-sm-12 userReviews" id="{{userReview.reviewId}}">
                                 <p class="reviewContent"><b>Review Content:&nbsp;</b>{{userReview.reviewContent}}</p>
                                 <p class="reviewRating"><b>Rating:&nbsp;</b>{{userReview.reviewRating}}</p>
@@ -64,7 +66,7 @@
                                 <p><a class="modifyHref changeReview" href="#">Edit</a></p>
                                 <p><a class="modifyHref deleteReview" href="#">Delete</a></p>
                                 <p><a class="modifyHref reviewCancel hide" href="#">Cancel</a></p>
-                            </div>
+                            </div> --}}
                             {{else}}
                             <h2>Write Your Review</h2>
                             {{#if authenticated}}
@@ -81,18 +83,24 @@
                                     Login</a></p>
                             {{/if}}
                             {{/if}}
-                            <h2>Reviews From Other Users</h2>                            
-                            {{#if perfumeReviews}}                            
-                            {{#each perfumeReviews}}                            
-                            <div class="col-sm-12 userReviews">                                
-                            <p><b>User Name:&nbsp;</b>{{userName}}</p >                                
-                            <p><b>Review Content:&nbsp;</b>{{content}}</p >                                
-                            <p><b>Likes:&nbsp;</b>{{likes}}</p >                                
-                            <p><b>Dislikes:&nbsp;</b>{{dislikes}}</p >                            
-                            </div>                            
-                            {{/each}}                            
-                            {{else}}                            
-                            <p>No one leaves review yet.</p >                            
+                            <h2>Reviews From Other Users</h2>
+                            {{#if perfumeReviews}}
+                            {{#each perfumeReviews}}
+                            <div class="col-sm-12 userReviews" id="{{perfumeId}}">
+                                <p><b>User Name:&nbsp;</b>{{userName}}</p>
+                                <p><b>Review Content:&nbsp;</b>{{content}}</p>
+                                <p><b>Likes:&nbsp;</b>
+                                    <ltag>{{likes}}</ltag>
+                                    <a class="like"><i class="fa fa-thumbs-up"></i></a>
+                                </p>
+                                <p><b>Dislikes:&nbsp;</b>
+                                    <dltag>{{dislikes}}</dltag>
+                                    <a class="dislike"><i class="fa fa-thumbs-down"></i></a>
+                                </p>
+                            </div>
+                            {{/each}}
+                            {{else}}
+                            <p>No one leaves review yet.</p>
                             {{/if}}
                         </div>
                     </div>
