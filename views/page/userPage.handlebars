@@ -76,19 +76,30 @@
             </div>
 
             <div class="col-sm-12">
-                <h3>You can manage your review here:</h3>
-                {{#each userReviews}}
-                <div class="col-sm-12">
-                    <a href="/perfume/{{perfumeId}}"><i class="fa fa-arrow-right"></i>{{perfumeName}}</a>
-                    <p>{{reviewContent}}</p>
-                    <p><a id="changeReview" herf="">Edit</a></p>
-                    <p><a id="deleteReview" herf="">Dekete</a></p>
+                <div class="user_reviews">
+                    <h2 class="title text-center">User Reviews</h2>
+                    <h3>You can manage your reviews here:</h3>
+                    {{#each userReviews}}
+                    <div class="col-sm-12 userReviews" id="{{reviewId}}">
+                        <a href="/perfume/{{perfumeId}}"><i
+                                class="fa fa-arrow-right"></i>{{perfumeName}}&nbsp;-&nbsp;{{perfumeCompany}}</a>
+                        <p class="reviewContent">{{reviewContent}}</p>
+                        <p class="reviewRating">Rating: {{reviewRating}}</p>
+                        <form class="perfumeReviewForm hide">
+                            <textarea class="txtArea"></textarea>
+                            <b>Rating: </b> <input class="rating" type="number" />
+                            <button>Submit</button>
+                        </form>
+                        <p><a class="modifyHref changeReview" href="#">Edit</a></p>
+                        <p><a class="modifyHref deleteReview" href="#">Delete</a></p>
+                        <p><a class="modifyHref reviewCancel hide" href="#">Cancel</a></p>
+                    </div>
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
 
             <div class="col-sm-12" >
-                <h3>You can add your new perfume here:</h3>
+                <h3>You can add new perfume here:</h3>
                 <div class="signup-form">
                     <form action="/perfume/" method="post">
                     please input a perfume name<input id="name" name="name" type="text"  placeholder="perfume name"/>
