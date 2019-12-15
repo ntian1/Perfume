@@ -3,6 +3,7 @@ const router = express.Router();
 const data = require("../data");
 const perfumeData = data.perfume;
 const userData = data.users;
+var authenticate=false;
 
 router.get("/", async (req, res) => {
     try {
@@ -10,7 +11,7 @@ router.get("/", async (req, res) => {
       res.json(perfumeList);
       
     } catch (e) {
-      res.status(500).render("page/errorPage",{ error: e });
+      res.status(500).render("page/errorPage",{ error: e , authenticated:authenticated});
     }
   });   
 
@@ -42,16 +43,21 @@ router.post("/", async (req, res) => {
       url = "perfumes/:" + newperfume._id.toString()
     res.status(200).redirect(url,{message:"post success"});
   } catch (e) {
-    res.status(500).render('page/errorPage',{ errorMessage: e });
+    res.status(500).render('page/errorPage',{ errorMessage: e , authenticated:authenticate});
   }
 });
 
 router.get("/:id", async (req, res) => {
   try {
+    if (req.session.cookie.expires!=false && req.session.cookie.expires!=null){
+      authenticate=true;
+    }else{
+        authenticate=false;
+    }
     const perfume = await perfumeData.get(req.params.id);
     res.render('page/perfumePage',{authenticated: true,name:perfume.name,
     company:perfume.companyName, perfumeDetails:perfume.introduction,
-  _id:perfume._id, "amazon-url":perfume.link[0], perfumeTages:perfume.tags});
+  _id:perfume._id, "amazon-url":perfume.link[0], perfumeTages:perfume.tags, authenticated:authenticate});
   } catch (e) {
     res.status(404).render('page/errorPage',{ errorMessage: e });
   }
@@ -81,7 +87,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    
+
     blogperfumeData = await perfumeData.getperfumeById(req.params.id);
   } catch (e) {
     res.status(404).json({ error: "perfume not found" });
