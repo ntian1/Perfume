@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
       res.json(perfumeList);
       
     } catch (e) {
-      res.status(500).render("page/errorPage",{ error: e , authenticated:authenticated}});
+      res.status(500).render("page/errorPage",{ error: e , authenticated:authenticated});
     }
   });   
 
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
       blogperfumeData.companyName,
       blogperfumeData.introduction
       );
-      url = "perfumes/:" + newperfume._id.toString()
+      url = "perfumes/" + newperfume._id.toString()
     res.status(200).redirect(url,{message:"post success"});
   } catch (e) {
     res.status(500).render('page/errorPage',{ errorMessage: e , authenticated:authenticate});
@@ -56,9 +56,9 @@ router.get("/:id", async (req, res) => {
         authenticate=false;
     }
     const perfume = await perfumeData.get(req.params.id);
-    res.render('page/perfumePage',{authenticated: true,name:perfume.name,
+    res.render('page/perfumePage',{name:perfume.name,
     company:perfume.companyName, perfumeDetails:perfume.introduction,
-  _id:perfume._id, "amazon-url":perfume.link[0], perfumeTages:perfume.tags, authenticated:authenticate});
+  _id:perfume._id, "amazon-url":perfume.link[0], 'img-url':perfume.picture[0],authenticated:authenticate});
   } catch (e) {
     res.status(404).render('page/errorPage',{ errorMessage: e });
   }
