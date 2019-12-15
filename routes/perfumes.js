@@ -5,6 +5,7 @@ const perfumeData = data.perfume;
 const userData = data.users;
 var authenticate=false;
 const commentData = data.comments;
+const ObjectID=require('mongodb').ObjectID;
 
 router.get("/", async (req, res) => {
     try {
@@ -56,9 +57,27 @@ router.get("/:id", async (req, res) => {
         authenticate=false;
     }
     const perfume = await perfumeData.get(req.params.id);
-    res.render('page/perfumePage',{name:perfume.name,
+      const commentss=perfume.rating;
+     var commentslist=[];
+    for (i=0;i<commentss.length;i++){
+      var n=await commentData.get(commentss[i]['_id']);
+      var m={
+            content:n.text,
+            likes: n.like.toString(),
+            dislikes:n.dislike.toString()
+          }
+      commentslist.push(m);
+    }
+    
+    
+      res.render('page/perfumePage',{name:perfume.name,
     company:perfume.companyName, perfumeDetails:perfume.introduction,
-  _id:perfume._id, "amazon-url":perfume.link[0], 'img-url':perfume.picture[0],authenticated:authenticate});
+  _id:perfume._id, "amazon-url":perfume.link[0],
+   'img-url':perfume.picture[0],authenticated:authenticate,
+   perfumeReviews:commentslist
+  });
+  
+    
   } catch (e) {
     res.status(404).render('page/errorPage',{ errorMessage: e });
   }
@@ -102,37 +121,24 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.post("comment/:perfumeId", async (req, res) => {
-  if (Object.keys(req.query).length != 1 || !req.query.perfumeId) {
-      res.status(400).json({ error: "You must provide one and only one perfumeId in your url" });
-      return;
+router.post("/comment/:perfumeId", async (req, res) => {
+  if (req.body.userReview==null && req.body.rate){
+    res.status(400).json({ error: "You must provide one review and give rate" });
+  }
+    var userid=req.session.AuthCookie['_id'];
+    var perfumeid=req.params.perfumeId;
+    try{
+      const newcomment= await commentData.create(userid,perfumeid,req.body.rate,req.body.userReview);
+    }catch(e){
+      res.status(404).json({ error: "perfume can't create" });
     }
-    const body = req.body;
-    const userreview = body.userReview;
-    const rate = body.rate;
-    const perfumeId = req.params.perfumeId;
-    const userId = req.query.userId;
-    try {
-      await perfumeData.get(perfumeId);
-    } catch (e) {
-      res.status(404).json({ error: "perfume not found" });
-      return;
-    }
-    try {
-      await userData.get(userId);
-    } catch (e) {
-      res.status(404).json({ error: "user not found" });
-      return;
-    }
-    try {
-      const newcomment = await commentData.create(userId,perfumeId,rate,userreview);;
-      res.status(200);
-    } catch (e) {
-      res.status(500).json({ error: e });
-    }
+    url = "/perfume/" + req.params.perfumeId.toString();
+    res.redirect(url);
+  
+   
   });
   
-router.delete("comment/:commentID", async (req, res) => {
+router.delete("/comment/:commentID", async (req, res) => {
   
   if (Object.keys(req.query).length != 1 || !req.query.userId) {
   res.status(400).json({ error: "You must one and only one userId in your url" });

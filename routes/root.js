@@ -11,20 +11,22 @@ router.get("/", async (req, res) => {
     }
     try {
       var perfumelist=await perfumeData.getAll();
-      perfumelist.map((perfume)=>{
-        const i={
-          name:perfume.name,
-          companyName:perfume.companyName,
-          img_url:perfume.link[0],
-          _id:perfume._id
-        };
-        return i;
-      });
+      var newlist=[];
+      for (i=0;i<perfumelist.length;i++){
+        var n={ name:perfumelist[i].name,
+          companyName:perfumelist[i].companyName,
+          img_url:perfumelist[i].picture[0],
+          _id:perfumelist[i]._id
+        }
+        newlist.push(n);
+      }
       
-      res.render('page/homepage',{title:"Perfume Promotion - Home Page", featuresProduct:perfumelist, authenticated:authenticate});
+        
+      
+      res.render('page/homepage',{title:"Perfume Promotion - Home Page", featuresProduct:newlist, authenticated:authenticate});
 
     } catch (e) {
-        res.status(500).render("/page/errorPage",{ error: e, authenticated:authenticate});
+        res.status(500).render("page/errorPage",{ error: e, authenticated:authenticate});
     }
   });  
 

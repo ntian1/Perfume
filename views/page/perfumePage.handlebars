@@ -69,9 +69,10 @@
                             {{else}}
                             <h2>Write Your Review</h2>
                             {{#if authenticated}}
-                            <form class="" action="/perfume/comment/{{_id}}" method="post">
-                                <textarea id="userReview"></textarea>
-                                <b>Rating: </b> <input type="number" id="rate" placeholder="From 1 to 5">
+                            <form  action="/perfume/comment/{{_id}}" method="post">
+
+                                <textarea id="userReview" name="userReview"></textarea>
+                                <b>Rating: </b> <input type="number" id="rate"  name="rate" placeholder="From 1 to 5">
                                 <button type="submit" class="btn btn-default pull-right">
                                     Submit
                                 </button>
@@ -85,9 +86,8 @@
                             <h2>Reviews</h2>                            
                             {{#if perfumeReviews}}                            
                             {{#each perfumeReviews}}                            
-                            <div class="col-sm-12 userReviews">                                
-                            <p><b>User Name:&nbsp;</b>{{userName}}</p >                                
-                            <p><b>Review Content:&nbsp;</b>{{content}}</p >                                
+                            <div class="col-sm-12 userReviews">                                                            
+                            <p><b>Review Content:&nbsp;</b>{{content}}</p>                                
                             <p><b>Likes:&nbsp;</b>{{likes}}</p >                                
                             <p><b>Dislikes:&nbsp;</b>{{dislikes}}</p >                            
                             </div>                            
