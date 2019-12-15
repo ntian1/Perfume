@@ -131,7 +131,8 @@ router.post("comment/:perfumeId", async (req, res) => {
     }
   });
   
-router.delete("comment/:perfumeId", async (req, res) => {
+router.delete("comment/:commentID", async (req, res) => {
+  
   if (Object.keys(req.query).length != 1 || !req.query.userId) {
   res.status(400).json({ error: "You must one and only one userId in your url" });
   return;
