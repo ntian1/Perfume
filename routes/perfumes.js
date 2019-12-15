@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const perfume = await perfumeData.get(req.params.id);
-    res.render('page/perfumePage',{name:perfume.name,
+    res.render('page/perfumePage',{authenticated: true,name:perfume.name,
     company:perfume.companyName, perfumeDetails:perfume.introduction,
   _id:perfume._id, "amazon-url":perfume.link[0], perfumeTages:perfume.tags});
   } catch (e) {
