@@ -145,8 +145,8 @@ $(document).ready(function () {
     });
 
     $("button").click(function (event) {
-        if (this.hasClass("login")){
-            return false;
+        if (this.classList.contains("login")){
+            return true;
         }
         event.preventDefault();
         const p = $(this).parent();
@@ -176,7 +176,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: "/users/changeEmail",
                 data: {
-                    changeEmail: p.find("#emailAddress").value
+                    changeEmail: p.find("#emailAddress")[0].value
                 },
                 success: function (result) {
                     alert('Succes!');
@@ -192,7 +192,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: "/users/changePassword",
                 data: {
-                    changePassword: p.find("#password").value
+                    changePassword: p.find("#password")[0].value
                 },
                 success: function (result) {
                     alert('Succes!');
@@ -204,11 +204,12 @@ $(document).ready(function () {
             });
         }
         if (p[0].id == "genderForm") {
+            const v = p.find("#gender");
             $.ajax({
                 type: "POST",
                 url: "/users/changeGender",
                 data: {
-                    changeGender: p.find("#gender").value
+                    changeGender: p.find("#gender")[0].value
                 },
                 success: function (result) {
                     alert('Succes!');
@@ -224,7 +225,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: "/users/changeAge",
                 data: {
-                    changeAge: p.find("#age").value
+                    changeAge: p.find("#age")[0].value
                 },
                 success: function (result) {
                     alert('Succes!');

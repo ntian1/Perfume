@@ -8,12 +8,12 @@
             <div class="col-sm-12">
                 <h3>You can manage your account here:</h3>
                 <p id="userNameP">User Name:&nbsp;<ptag>{{userName}}</ptag>&nbsp;&nbsp;</p>
-                <p id="emailAddressP">Email Address:&nbsp;<ptag>{{Email}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
+                <p id="emailAddressP">Email Address:&nbsp;<ptag>{{emailAddress}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
                         id="changeEmailAddress" href="#">Change</a><a id="emailAddressCancel" class="modifyHref hide"
                         href="#">Cancel</a></p>
                 <form id="emailAddressForm" class="hide">
                     <input type="email" id="emailAddress" placeholder="New EmailAddress" />
-                    <button>Submit</button>
+                    <button type="submit" class="bt">Submit</button>
                 </form>
 
                 <p id="genderP">Gender:&nbsp;<ptag>{{Gender}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
@@ -21,7 +21,7 @@
                         href="#">Cancel</a></p>
                 <form id="genderForm" class="hide">
                     <input type="text" id="gender" placeholder="New Gender" />
-                    <button>Submit</button>
+                    <button type="submit" class="bt">Submit</button class="">
                 </form>
 
                 <p id="ageP">Age:&nbsp;<ptag>{{Age}}</ptag>&nbsp;&nbsp;<a class="modifyHref"
@@ -29,7 +29,7 @@
                         href="#">Cancel</a></p>
                 <form id="ageForm" class="hide">
                     <input type="text" id="age" placeholder="New Age" />
-                    <button>Submit</button>
+                    <button class="">Submit</button>
                 </form>
 
                 <p id="passwordP">Password:&nbsp;&nbsp;<a class="modifyHref" id="changePassword" href="#">Change</a><a
@@ -37,7 +37,7 @@
                 </p>
                 <form id="passwordForm" class="hide">
                     <input type="password" id="password" placeholder="New Password" />
-                    <button>Submit</button>
+                    <button class="">Submit</button class="">
                 </form>
                 {{!-- <p>User Name: {{userName}}
                 <p>Email Address:  {{emailAddress}} 
