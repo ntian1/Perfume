@@ -169,6 +169,28 @@ async function reportedComments(id){
     return newComment;
 }
 
+async function deleteCommits(commentid,userId,perfumeid){
+    const commentsCollection=await comments();
+    const deletionInfo= await commentsCollection.removeOne({_id:commentid});
+    if (deletionInfo.deletedCount === 0) {
+        throw 'Could not delete commends with id of '+id;
+      }
+    const usersCollection = await users();
+    var usercomments=await usersCollection.get(userId)['comments'];
+    usercomments.remove(commentid);
+    const updateInfo = await usersCollection.updateOne({ _id: userId}, {$set:{comments:usercomments}},{upsert:true});
+        if (updateInfo.modifiedCount === 0) {
+          throw "could not update dog successfully";
+        }
+    const perfumeCollection = await perfume();
+    var perfumecomments=await perfumeCollection.get(userId)['comments'];
+    perfumecomments.remove(commentid);
+    const updateperfume = await perfumeCollection.updateOne({ _id: perfumeid}, {$set:{rating:perfumecomments}},{upsert:true});
+        if (updateperfume.modifiedCount === 0) {
+          throw "could not update dog successfully";
+        }
+}
+
 module.exports.create = create
 module.exports.getAll = getAll
 module.exports.get = get
@@ -177,3 +199,4 @@ module.exports.dislikeComments = dislikeComments
 module.exports.reportedComments = reportedComments
 module.exports.getUserReview = getUserReview
 module.exports.getPerfumeReview = getPerfumeReview
+module.exports.deleteCommits=deleteCommits

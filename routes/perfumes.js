@@ -41,8 +41,8 @@ router.post("/", async (req, res) => {
       blogperfumeData.companyName,
       blogperfumeData.introduction
       );
-      url = "perfumes/:" + newperfume._id.toString()
-    res.status(200).redirect(url,{message:"post success"});
+      url = "/perfume/" + newperfume._id.toString();
+    res.redirect(url);
   } catch (e) {
     res.status(500).render('page/errorPage',{ errorMessage: e , authenticated:authenticate});
   }
@@ -56,9 +56,9 @@ router.get("/:id", async (req, res) => {
         authenticate=false;
     }
     const perfume = await perfumeData.get(req.params.id);
-    res.render('page/perfumePage',{authenticated: true,name:perfume.name,
+    res.render('page/perfumePage',{name:perfume.name,
     company:perfume.companyName, perfumeDetails:perfume.introduction,
-  _id:perfume._id, "amazon-url":perfume.link[0], perfumeTages:perfume.tags, authenticated:authenticate});
+  _id:perfume._id, "amazon-url":perfume.link[0], 'img-url':perfume.picture[0],authenticated:authenticate});
   } catch (e) {
     res.status(404).render('page/errorPage',{ errorMessage: e });
   }
@@ -132,7 +132,8 @@ router.post("comment/:perfumeId", async (req, res) => {
     }
   });
   
-router.delete("comment/:perfumeId", async (req, res) => {
+router.delete("comment/:commentID", async (req, res) => {
+  
   if (Object.keys(req.query).length != 1 || !req.query.userId) {
   res.status(400).json({ error: "You must one and only one userId in your url" });
   return;
@@ -164,11 +165,11 @@ router.post("like/:reviewId", async (req, res) => {
     res.status(400).json({ error: "You must provide one and only one perfumeId in your url" });
     return;
   }
-  const userId = req.params.userId;
+  const reviewId = req.params.reviewId;
   const perfumeId = req.query.perfumeId;
   
   try {
-    await userData.get(userId);
+    await reviewData.get(reviewId);
   } catch (e) {
     res.status(404).json({ error: "user not found" });
     return;
