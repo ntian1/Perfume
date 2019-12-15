@@ -165,11 +165,11 @@ router.post("like/:reviewId", async (req, res) => {
     res.status(400).json({ error: "You must provide one and only one perfumeId in your url" });
     return;
   }
-  const userId = req.params.userId;
+  const reviewId = req.params.reviewId;
   const perfumeId = req.query.perfumeId;
   
   try {
-    await userData.get(userId);
+    await reviewData.get(reviewId);
   } catch (e) {
     res.status(404).json({ error: "user not found" });
     return;

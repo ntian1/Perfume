@@ -33,7 +33,7 @@ async function insertSize(perfumeID,newSize){
     const objId = ObjectId.createFromHexString(String(perfumeID))
 
 
-    const updatedAnimal = {
+    const updatedPerfume = {
         $addToSet: {
             size: {
                 $each:[newSize]
@@ -41,7 +41,7 @@ async function insertSize(perfumeID,newSize){
         }
     }
 
-    await perfumeCollection.updateOne({ _id: objId }, updatedAnimal);
+    await perfumeCollection.updateOne({ _id: objId }, updatedPerfume);
 
 
     return await this.get(objId);
