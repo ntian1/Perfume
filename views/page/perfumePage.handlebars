@@ -70,7 +70,7 @@
                             {{else}}
                             <h2>Write Your Review</h2>
                             {{#if authenticated}}
-                            <form class="" action="/comment/:perfumeId" method="post">
+                            <form class="" action="/perfume/comment/:perfumeId" method="post">
                                 <textarea id="userReview"></textarea>
                                 <b>Rating: </b> <input type="number" placeholder="From 1 to 5">
                                 <button type="button" class="btn btn-default pull-right">
@@ -78,29 +78,23 @@
                                 </button>
                             </form>
                             {{else}}
-                            <p><b>You have to login to write a review!&nbsp;&nbsp;</b><a href="/user/login"><i
+                            <p><b>You have to login to write a review!&nbsp;&nbsp;</b><a href="/users/"><i
                                         class="fa fa-lock"></i>
                                     Login</a></p>
                             {{/if}}
                             {{/if}}
-                            <h2>Reviews From Other Users</h2>
-                            {{#if perfumeReviews}}
-                            {{#each perfumeReviews}}
-                            <div class="col-sm-12 userReviews" id="{{perfumeId}}">
-                                <p><b>User Name:&nbsp;</b>{{userName}}</p>
-                                <p><b>Review Content:&nbsp;</b>{{content}}</p>
-                                <p><b>Likes:&nbsp;</b>
-                                    <ltag>{{likes}}</ltag>
-                                    <a class="like"><i class="fa fa-thumbs-up"></i></a>
-                                </p>
-                                <p><b>Dislikes:&nbsp;</b>
-                                    <dltag>{{dislikes}}</dltag>
-                                    <a class="dislike"><i class="fa fa-thumbs-down"></i></a>
-                                </p>
-                            </div>
-                            {{/each}}
-                            {{else}}
-                            <p>No one leaves review yet.</p>
+                            <h2>Reviews</h2>                            
+                            {{#if perfumeReviews}}                            
+                            {{#each perfumeReviews}}                            
+                            <div class="col-sm-12 userReviews">                                
+                            <p><b>User Name:&nbsp;</b>{{userName}}</p >                                
+                            <p><b>Review Content:&nbsp;</b>{{content}}</p >                                
+                            <p><b>Likes:&nbsp;</b>{{likes}}</p >                                
+                            <p><b>Dislikes:&nbsp;</b>{{dislikes}}</p >                            
+                            </div>                            
+                            {{/each}}                            
+                            {{else}}                            
+                            <p>No one leaves review yet.</p >                            
                             {{/if}}
                         </div>
                     </div>
