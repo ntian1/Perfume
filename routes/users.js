@@ -137,7 +137,7 @@ router.get('/logout',async(req,res)=>{
     //res.clearCookie('AuthCookie');
     req.session.cookie.expires=false;
     req.session.destroy();
-    res.render('page/loginPage',{error:'you were logout',authenticated:authenticate});
+    res.render('page/loginPage',{error:'you were logout', authenticated: false});
 });
 
 router.post('/changeEmail', async(req,res)=>{

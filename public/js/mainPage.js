@@ -4,6 +4,7 @@ $(document).ready(function () {
         link.replace("/", "+");
         link = "search?q=" + link;
     }
+    const a = $("#twitterLink");
     $("#facebookLink").prop("href", "http://www.facebook.com/share.php?u=https://www.google.com/" + link);
     $("#fbshareLink").prop("href", "http://www.facebook.com/share.php?u=https://www.google.com/" + link);
     $("#twitterLink", "#twshareLink").prop("href", "https://twitter.com/share?url=" + encodeURIComponent(window.location.href) + "&text=" + document.title, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
