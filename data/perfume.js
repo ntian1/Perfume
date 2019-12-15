@@ -203,7 +203,6 @@ module.exports.getAll = getAll
 module.exports.insertSize = insertSize
 module.exports.insertLink = insertLink
 module.exports.get = get
-module.exports.getUserReview = getUserReview
 module.exports.addTags = addTags
 module.exports.likeTags = likeTags
 module.exports.dislikeTags = dislikeTags
