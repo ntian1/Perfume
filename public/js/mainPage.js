@@ -145,7 +145,7 @@ $(document).ready(function () {
     });
 
     $("button").click(function (event) {
-        if (this.classList.contains("login")) {
+        if (this.classList.contains("login") || this.classList.contains("btn")) {
             return true;
         }
         event.preventDefault();
@@ -171,7 +171,7 @@ $(document).ready(function () {
         //         }
         //     });
         // }
-        if (p[0].id == "emailAddressForm") {
+        else if (p[0].id == "emailAddressForm") {
             $.ajax({
                 type: "POST",
                 url: "/users/changeEmail",
@@ -187,7 +187,7 @@ $(document).ready(function () {
                 }
             });
         }
-        if (p[0].id == "passwordForm") {
+        else if (p[0].id == "passwordForm") {
             $.ajax({
                 type: "POST",
                 url: "/users/changePassword",
@@ -203,7 +203,7 @@ $(document).ready(function () {
                 }
             });
         }
-        if (p[0].id == "genderForm") {
+        else if (p[0].id == "genderForm") {
             const v = p.find("#gender");
             $.ajax({
                 type: "POST",
@@ -220,7 +220,7 @@ $(document).ready(function () {
                 }
             });
         }
-        if (p[0].id == "ageForm") {
+        else if (p[0].id == "ageForm") {
             $.ajax({
                 type: "POST",
                 url: "/users/changeAge",
@@ -236,7 +236,7 @@ $(document).ready(function () {
                 }
             });
         }
-        if (p.classList.contains("perfumeReviewForm")) {
+        else if (p.classList.contains("perfumeReviewForm")) {
             $.ajax({
                 type: "POST",
                 url: "",
@@ -254,6 +254,7 @@ $(document).ready(function () {
                 }
             });
         }
+        else {return true;}
         return false;
     });
 
