@@ -20,20 +20,20 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const blogperfumeData = req.body;
   if (!blogperfumeData) {
-    res.status(400).json({ error: "You must provide data to perfume" });
+    res.status(400).render('page/errorPage',{ error: "You must provide data to perfume" });
     return;
   }
 
   if (!blogperfumeData.name||typeof blogperfumeData.name != "string") {
-    res.status(400).json({ error: "You must provide a String name" });
+    res.status(400).render('page/errorPage',{ error: "You must provide a String name" });
     return;
   }
   if (!blogperfumeData.companyName||typeof blogperfumeData.companyName != "string") {
-    res.status(400).json({ error: "You must provide a string companyName" });
+    res.status(400).render('page/errorPage',{ error: "You must provide a string companyName" });
     return;
   }
   if (!blogperfumeData.introduction||typeof blogperfumeData.introduction != "string") {
-    res.status(400).json({ error: "You must provide a introduction" });
+    res.status(400).render('page/errorPage',{ error: "You must provide a introduction" });
     return;
   }
   try {
@@ -165,63 +165,6 @@ router.delete("/comment/:commentID", async (req, res) => {
   res.status(500).json({ error: e });
   }
 });
-
-router.post("like/:reviewId", async (req, res) => {
-  if (Object.keys(req.query).length != 1 || !req.query.perfumeId) {
-    res.status(400).json({ error: "You must provide one and only one perfumeId in your url" });
-    return;
-  }
-  const userId = req.params.userId;
-  const perfumeId = req.query.perfumeId;
-  
-  try {
-    await userData.get(userId);
-  } catch (e) {
-    res.status(404).json({ error: "user not found" });
-    return;
-  }
-  try {
-    await perfumeData.readperfume(perfumeId);
-  } catch (e) {
-    res.status(404).json({ error: "perfume not found" });
-    return;
-  }
-  try {
-    await userData.likingperfume(userId, perfumeId);
-    res.status(200).json();
-  } catch (e) {
-    res.status(500).json({ error: e });
-  }
-});
-
-router.delete("like/:userId", async (req, res) => {
-  if (Object.keys(req.query).length != 1 || !req.query.perfumeId) {
-    res.status(400).json({ error: "You must one and only one perfumeId in your url" });
-    return;
-  }
-  const userId = req.params.userId;
-  const perfumeId = req.query.perfumeId;
-  
-  try {
-    await userData.get(userId);
-  } catch (e) {
-    res.status(404).json({ error: "user not found" });
-    return;
-  }
-  try {
-    await perfumeData.readperfume(perfumeId);
-  } catch (e) {
-    res.status(404).json({ error: "perfume not found" });
-    return;
-  }
-  try {
-    await userData.unlikingperfume(userId, perfumeId);
-    res.status(200).json();
-  } catch (e) {
-    res.status(500).json({ error: e });
-  }
-});
-
 
 
 module.exports = router;

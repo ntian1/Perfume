@@ -33,9 +33,29 @@ async function insertSize(perfumeID,newSize){
     const objId = ObjectId.createFromHexString(String(perfumeID))
 
 
-    const updatedAnimal = {
+    const updatedPerfume = {
         $addToSet: {
             size: {
+                $each:[newSize]
+            }
+        }
+    }
+
+    await perfumeCollection.updateOne({ _id: objId }, updatedPerfume);
+
+
+    return await this.get(objId);
+}
+async function insertImage(perfumeID,newSize){
+    const perfumeCollection = await perfume();
+    const { ObjectId } = require('mongodb');
+
+    const objId = ObjectId.createFromHexString(String(perfumeID))
+
+
+    const updatedAnimal = {
+        $addToSet: {
+            picture: {
                 $each:[newSize]
             }
         }
@@ -76,10 +96,6 @@ async function getAll(){
 
 
 async function get(id){
-    if (!id) throw "You must provide an id to search for";
-    if (typeof id !== 'string') {
-        throw "id not string";
-    } 
     const perfumeCollection = await perfume();
     const { ObjectId } = require('mongodb');
     if (ObjectId.isValid(id) === false) {
@@ -201,11 +217,10 @@ async function searchTag(tagText){
 module.exports.create = create
 module.exports.getAll = getAll
 module.exports.insertSize = insertSize
+module.exports.insertImage = insertImage
 module.exports.insertLink = insertLink
 module.exports.get = get
 module.exports.addTags = addTags
 module.exports.likeTags = likeTags
 module.exports.dislikeTags = dislikeTags
 module.exports.searchTag = searchTag
-
-
